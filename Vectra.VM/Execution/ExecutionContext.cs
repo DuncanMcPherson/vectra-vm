@@ -34,8 +34,14 @@ public class ExecutionContext
     public VbcMethod Method { get; }
     public int InstructionPointer { get; set; }
 
-    public ExecutionContext(VbcMethod method)
+    public ExecutionContext(VbcMethod method, object[]? callArgs = null)
     {
         Method = method;
+        if (callArgs is not { Length: > 0 }) return;
+        Locals["this"] = callArgs[0];
+        for (var i = 1; i < callArgs.Length; i++)
+        {
+            Locals[method.Parameters[i - 1].Name] = callArgs[i];
+        }
     }
 }
