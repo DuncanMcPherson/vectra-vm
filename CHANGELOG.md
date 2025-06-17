@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/DuncanMcPherson/vectra-vm/compare/v1.0.0...v1.0.1) (2025-06-17)
+
+
+### Bug Fixes
+
+* add repo url to allow attribution of package to repo ([7cb7fbb](https://github.com/DuncanMcPherson/vectra-vm/commit/7cb7fbbf73a14169ff0ba9b69b6d7bb4ef7956c3))
+
 # 1.0.0 (2025-06-17)
 
 
