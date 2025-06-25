@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/DuncanMcPherson/vectra-vm/compare/v1.0.1...v1.1.0) (2025-06-25)
+
+
+### Features
+
+* add support for variables ([8e9c7de](https://github.com/DuncanMcPherson/vectra-vm/commit/8e9c7decc75338cd54cd5e1f53dcaeee48893d33))
+
 ## [1.0.1](https://github.com/DuncanMcPherson/vectra-vm/compare/v1.0.0...v1.0.1) (2025-06-17)
 
 
