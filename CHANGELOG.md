@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/DuncanMcPherson/vectra-vm/compare/v1.1.0...v1.1.1) (2025-06-25)
+
+
+### Bug Fixes
+
+* **vm:** bump Vectra.Bytecode to version 2.5.0 ([93d6d89](https://github.com/DuncanMcPherson/vectra-vm/commit/93d6d8955d5ecc0c88b5670ec66df8209bc8113a))
+
 # [1.1.0](https://github.com/DuncanMcPherson/vectra-vm/compare/v1.0.1...v1.1.0) (2025-06-25)
 
 
