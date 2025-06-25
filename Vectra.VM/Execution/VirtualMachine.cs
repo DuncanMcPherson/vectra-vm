@@ -77,6 +77,11 @@ public class VirtualMachine
                     context.Locals[localName] = localValue;
                     break;
                 }
+                case OpCode.LoadDefault:
+                    // This is a placeholder for a default value.
+                    // In the future we will need to implement type detection and default value generation.
+                    context.OperandStack.Push(null!);
+                    break;
                 case OpCode.Pop:
                     context.OperandStack.Pop();
                     break;
