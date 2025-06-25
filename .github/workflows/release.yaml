@@ -18,7 +18,9 @@ jobs:
       !contains(github.event.head_commit.message, '[skip ci]')
     runs-on: ubuntu-latest
     steps:
-    - uses: DuncanMcPherson/vectra-workflows@master
-      with:
-        app-private-key: ${{ secrets.APP_PRIVATE_KEY }}
-        deploy-key: ${{ secrets.DEPLOY_KEY }}
+      - uses: DuncanMcPherson/vectra-workflows@master
+        with:
+          dotnet-version: '9.0.x'
+          node-version: '18.x'
+          app-private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          deploy-key: ${{ secrets.DEPLOY_KEY }}
