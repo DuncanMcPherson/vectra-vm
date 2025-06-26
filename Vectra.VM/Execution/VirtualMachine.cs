@@ -12,11 +12,29 @@ public class VirtualMachine
 {
     private readonly IExecutionHost _host; // this will get used eventually, for printing output;
     private readonly VbcProgram _program;
+    private readonly Dictionary<int, VbcType> _typeIndexMap = new(); 
 
     public VirtualMachine(VbcProgram program, IExecutionHost? host = null)
     {
         _host = host ?? new NullHost();
         _program = program;
+        PopulateTypeIndexMap();
+    }
+
+    private void PopulateTypeIndexMap()
+    {
+        PopulateSpace(_program.RootSpace);
+    }
+    
+    private void PopulateSpace(VbcSpace? space)
+    {
+        if (space == null) return;
+        foreach (var type in space.Types)
+        {
+            _typeIndexMap[_typeIndexMap.Count] = type;
+        }
+        foreach (var subspace in space.Subspaces)
+            PopulateSpace(subspace);
     }
 
     public void Run()
@@ -137,6 +155,25 @@ public class VirtualMachine
                 case OpCode.Ret:
                     var value = context.OperandStack.Count > 0 ? context.OperandStack.Pop() : null;
                     return value;
+                case OpCode.New:
+                    var ctorArity = instruction.Operand >> 24;
+                    var typeIndex = instruction.Operand & 0x00FFFFFF;
+                    if (!_typeIndexMap.TryGetValue(typeIndex, out var type))
+                        throw new InvalidOperationException($"Type index {typeIndex} not found.");
+                    if (type is not VbcClass cls)
+                        throw new InvalidOperationException($"Type {type} is not a class.");
+                    var ctorArgs = new object[ctorArity];
+                    for (var i = ctorArity - 1; i >= 0; i--)
+                    {
+                        if (context.OperandStack.Count == 0)
+                            throw new InvalidOperationException("Stack underflow while reading constructor arguments.");
+                        ctorArgs[i] = context.OperandStack.Pop();   
+                    }
+                    var inst = new VbcInstance(cls);
+                    
+                    // TODO: Add support for constructor arguments
+                    context.OperandStack.Push(inst);
+                    break;
                 case OpCode.Eq:
                     PushBoolResult(context, Equals);
                     break;
